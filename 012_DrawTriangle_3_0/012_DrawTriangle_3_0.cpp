@@ -352,8 +352,8 @@ bool OnCreate(HWND hWnd)
 
 void OnDraw(HWND hWnd)
 {
-    glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    float clearColor[] = { 1.0f, 0.0f, 0.0f, 1.0f };
+    glClearBufferfv(GL_COLOR, 0, clearColor);
 
     glBindVertexArray(VertexArrayObjects[0]);
     glDrawArrays(GL_TRIANGLES, 0, 3);
