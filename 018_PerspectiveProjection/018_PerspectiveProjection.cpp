@@ -1,4 +1,4 @@
-// 017_ViewTransform.cpp
+// 018_PerspectiveProjection.cpp
 #define _USE_MATH_DEFINES
 #include <Windows.h>
 #include <tchar.h>
@@ -255,6 +255,21 @@ public:
         );
     }
 
+    static const Matrix4x4 PerspectiveFovRightHand(float fovRadian, float aspect, float nearPlane, float farPlane)
+    {
+        float xScale = 1.f / tan(fovRadian * 0.5f);
+        float yScale = xScale / aspect;
+        float zScale = (farPlane + nearPlane) / (farPlane - nearPlane);
+        float zTrans = 2 * nearPlane * farPlane / (farPlane - nearPlane);
+
+        return Matrix4x4(
+            xScale, 0.f, 0.f, 0.f,
+            0.f, yScale, 0.f, 0.f,
+            0.f, 0.f, zScale, -1.f,
+            0.f, 0.f, zTrans, 0.f
+        );
+    }
+
 private:
     float v[4][4];
 };
@@ -272,12 +287,14 @@ GLuint IndexBuffer = GL_INVALID_VALUE;
 GLint  Position = GL_INVALID_VALUE;
 GLint  Model = GL_INVALID_VALUE;
 GLint  View = GL_INVALID_VALUE;
+GLint  Projection = GL_INVALID_VALUE;
 
 float theta = 0.f;
 float phi = 0.f;
 
 Matrix4x4 ModelMatrix;
 Matrix4x4 ViewMatrix;
+Matrix4x4 ProjectionMatrix;
 
 // âÊñ ÉTÉCÉY
 const int Width = 640;
@@ -531,7 +548,7 @@ bool OnCreate(HWND hWnd)
 
     glLoadAddress(MajorVersion, MinorVersion);
 
-    ifstream fvert("..\\Shaders\\017_ViewTransform.vert");
+    ifstream fvert("..\\Shaders\\018_PerspectiveProjection.vert");
     string vsrc((istreambuf_iterator<char>(fvert)), istreambuf_iterator<char>());
 
     const char * vsources[] = { vsrc.c_str() };
@@ -571,6 +588,7 @@ bool OnCreate(HWND hWnd)
     Position = glGetAttribLocation(Program, "position");
     Model = glGetUniformLocation(Program, "Model");
     View = glGetUniformLocation(Program, "View");
+    Projection = glGetUniformLocation(Program, "Projection");
 
     glGenVertexArrays(1, &VertexArrayObject);
     glGenBuffers(1, &VertexBuffer);
@@ -609,18 +627,25 @@ void OnUpdate()
     //ModelMatrix = Matrix4x4::RotationX(theta);
     ModelMatrix = Matrix4x4::RotationY(theta);
     //ModelMatrix = Matrix4x4::RotationZ(theta);
-    //theta += 0.01f;
+    theta += 0.01f;
 
-    Vector3 eye(0.f, 0.f, 0.5f);
+    Vector3 eye(0.f, 0.f, 3.0f);
     Vector3 at(sin(phi), 0.f, 0.f);
     Vector3 up(0.f, 1.f, 0.f);
     phi += 0.02f;
 
 
     ViewMatrix = Matrix4x4::LookAtRightHand(eye, at, up);
+    ProjectionMatrix = Matrix4x4::PerspectiveFovRightHand(
+        static_cast<float>(M_PI_4),
+        static_cast<float>(Width) / Height,
+        0.01f,
+        10000.0f
+    );
 
     glUniformMatrix4fv(Model, 1, false, reinterpret_cast<float *>(&ModelMatrix));
     glUniformMatrix4fv(View, 1, false, reinterpret_cast<float *>(&ViewMatrix));
+    glUniformMatrix4fv(Projection, 1, false, reinterpret_cast<float *>(&ProjectionMatrix));
 }
 
 void OnDraw(HWND hWnd)
