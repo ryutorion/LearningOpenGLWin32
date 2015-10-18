@@ -43,6 +43,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "017_ViewTransform", "017_Vi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "018_PerspectiveProjection", "018_PerspectiveProjection\018_PerspectiveProjection.vcxproj", "{7214E3EF-E55E-429F-A731-262538AB8155}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "019_UniformBuffer", "019_UniformBuffer\019_UniformBuffer.vcxproj", "{ACFB05A0-C15F-4B50-A2FF-59B61BE75C3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -211,6 +213,14 @@ Global
 		{7214E3EF-E55E-429F-A731-262538AB8155}.Release|x64.Build.0 = Release|x64
 		{7214E3EF-E55E-429F-A731-262538AB8155}.Release|x86.ActiveCfg = Release|Win32
 		{7214E3EF-E55E-429F-A731-262538AB8155}.Release|x86.Build.0 = Release|Win32
+		{ACFB05A0-C15F-4B50-A2FF-59B61BE75C3E}.Debug|x64.ActiveCfg = Debug|x64
+		{ACFB05A0-C15F-4B50-A2FF-59B61BE75C3E}.Debug|x64.Build.0 = Debug|x64
+		{ACFB05A0-C15F-4B50-A2FF-59B61BE75C3E}.Debug|x86.ActiveCfg = Debug|Win32
+		{ACFB05A0-C15F-4B50-A2FF-59B61BE75C3E}.Debug|x86.Build.0 = Debug|Win32
+		{ACFB05A0-C15F-4B50-A2FF-59B61BE75C3E}.Release|x64.ActiveCfg = Release|x64
+		{ACFB05A0-C15F-4B50-A2FF-59B61BE75C3E}.Release|x64.Build.0 = Release|x64
+		{ACFB05A0-C15F-4B50-A2FF-59B61BE75C3E}.Release|x86.ActiveCfg = Release|Win32
+		{ACFB05A0-C15F-4B50-A2FF-59B61BE75C3E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
